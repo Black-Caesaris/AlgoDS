@@ -19,23 +19,60 @@
 // };
 
 // stack solution
+// class Solution {
+// public:
+//     int longestValidParentheses(string s) {
+//         stack<int> stk;
+    
+//         int max_ = 0;
+//         stk.push(-1);
+//         for(int i = 0 ; i < s.length(); i++){
+//             if(s[i] == '('){
+//                 stk.push(i);
+//             }else if(s[i] == ')'){
+//                 stk.pop();
+//                 if(stk.empty()){
+//                     stk.push(i);
+//                 }else{
+//                     max_ = max(max_, i - stk.top());
+//                 }
+//             }
+//         }
+
+//         return max_;
+//     }
+// };
+
+
+// O(1) 2 pointer approach
 class Solution {
 public:
     int longestValidParentheses(string s) {
-        stack<int> stk;
-    
+        int left = 0;
+        int right = 0;
+
         int max_ = 0;
-        stk.push(-1);
         for(int i = 0 ; i < s.length(); i++){
-            if(s[i] == '('){
-                stk.push(i);
-            }else if(s[i] == ')'){
-                stk.pop();
-                if(stk.empty()){
-                    stk.push(i);
-                }else{
-                    max_ = max(max_, i - stk.top());
-                }
+            if(s[i] == '(') left++;
+            else right++;
+            if(left == right){
+                max_ = max(max_, 2*right);
+            }
+            else if(right > left){
+                left = right = 0;
+            }
+        }
+        
+        left = right = 0;
+        
+        for(int i = s.length() - 1 ; i >= 0; i--){
+            if(s[i] == '(') left++;
+            else right++;
+            if(left == right){
+                max_ = max(max_, 2*right);
+            }
+            else if(left > right){
+                left = right = 0;
             }
         }
 
