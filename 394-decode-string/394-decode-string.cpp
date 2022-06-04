@@ -40,19 +40,14 @@ public:
         }
         
         
-        stack<string> r;
+        string r;
     
-        while(!stk.empty()){
-            r.push(stk.top());
+        for(int i = stk.size() - 1; i >=0 ; i--){
+            r = stk.top() + r;
             stk.pop();
         }
         
-        string x;
-        while(!r.empty()){
-            x = x + r.top();
-            r.pop();
-        }
         
-        return x;
+        return r;
     }
 };
