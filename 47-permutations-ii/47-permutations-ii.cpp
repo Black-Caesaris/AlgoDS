@@ -1,84 +1,31 @@
-// class Solution {
-// public:
-    
-//     vector<vector<int>> result;
-//     unordered_set<string> uniques;
-    
-//     void helper(string s, vector<int>& nums, vector<int> visited){
-//         if(s.length() == nums.size()){
-//             if(uniques.find(s) == uniques.end()){
-//                 vector<int> temp;
-//                 for(int i = 0; i < s.length(); i++){
-//                     temp.push_back(s[i]-'0');
-//                 }
-//                 result.push_back(temp);
-//                 uniques.insert(s);
-//             }            
-//             return;
-//         }
-        
-        
-//         for(int i = 0 ; i < nums.size(); i++){
-//             if(!visited[i]){
-//                 s.push_back(nums[i] + '0');
-//                 visited[i] = true;
-//                 helper(s, nums, visited);
-//                 s.pop_back();
-//                 visited[i] = false;
-//             }
-//         }
-        
-//     }
-//     vector<vector<int>> permuteUnique(vector<int>& nums) {
-//         if(nums.size() == 0) return {{}};
-//         string s;
-//         vector<int> visited(nums.size(), false);
-//         helper(s, nums, visited);
-//         return result;
-//     }
-// };
-
-
-
 class Solution {
 public:
-    
-    vector<vector<int>> result;
-    
-    void helper(vector<int> comb, unordered_map<int, int> count, int& N){
-        
-        if(comb.size() == N){
-            result.push_back(comb);
+    vector<vector<int>> ans;
+    vector<int> vis;
+    void helper(int idx,vector<int> &nums,vector<int> out){
+        int n = nums.size();
+        if(idx==n){
+            ans.push_back(out);
             return;
         }
-        
-        for(auto it = count.begin(); it != count.end(); it++){
-            if(it->second == 0) continue;
-            
-            comb.push_back(it->first);
-            it->second = it->second - 1;
-            helper(comb, count, N);
-            comb.pop_back();
-            it->second = it->second + 1;
-        }
-
-    }
-    vector<vector<int>> permuteUnique(vector<int>& nums) {
-        if(nums.size() == 0) return {{}};
-        string s;
-        
-        unordered_map<int, int> count;
-        vector<int> comb;
-        for(int i = 0 ; i < nums.size(); i++){
-            if(count.count(nums[i])){
-                count[nums[i]] += 1;
-            }else{
-                count.insert({nums[i], 1});
+        for(int i=0;i<n;i++){
+            if(vis[i]==0){
+                if(i!=0 && nums[i]==nums[i-1] && vis[i-1]==0)
+                    continue;
+                vis[i]=1;
+                out.push_back(nums[i]);
+                helper(idx+1,nums,out);
+                out.pop_back();
+                vis[i]=0;
             }
         }
-        
-        int N = nums.size();
-        helper(comb, count, N);
-        return result;
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        ans = {};
+        int n = nums.size();
+        sort(nums.begin(),nums.end());
+        vis = vector<int>(n,0);
+        helper(0,nums,{});
+        return ans;
     }
 };
