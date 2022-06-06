@@ -13,14 +13,12 @@ public:
         }
         
         for(int i = idx; i < candidates.size(); i++){
-            if(!visited[i]){
                 if(i != 0 && candidates[i] == candidates[i-1] && i != idx){
                     continue;
                 }
                 comb.push_back(candidates[i]);
                 helper(candidates, comb, target - candidates[i], i+1);
                 comb.pop_back();  
-            }
 
         }
         
