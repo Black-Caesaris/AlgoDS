@@ -8,7 +8,6 @@ public:
             hash = hash + "#" + to_string(temp < 0 ? temp + 26 : temp);    
         }
         
-        cout << hash << " ";
         return hash;
     }
     vector<vector<string>> groupStrings(vector<string>& strings) {
