@@ -18,7 +18,6 @@ public:
         priority_queue<int, vector<int>, greater<int>> topK;
 
         for(auto i = playerScore.begin(); i != playerScore.end(); i++){
-            cout << i->first << " " << i->second << endl;
             if(topK.size() < K){
                 topK.push(i->second);
             }else{
