@@ -10,8 +10,6 @@ public:
     }
     
     bool insert(int val) {
-        cout << "In here" << endl;
-
         if(!m.count(val)){
             m.insert({val, idx});
             v.push_back(val);
@@ -23,14 +21,20 @@ public:
     }
     
     bool remove(int val) {
-                    cout << "In here 2" << endl;
         if(m.count(val)){
-
+            // update index of element being swapped
             m[*(v.end() - 1)] = m[val];
-            iter_swap(v.begin() + m[val], v.end() - 1);
             
+            // swap with last element
+            iter_swap(v.begin() + m[val], v.end() - 1); 
+            
+            // remove last
             v.pop_back();
+            
+            // remove from map
             m.erase(val);
+            
+            // decrement current index pointer
             idx--;
             return true;
         }
@@ -39,13 +43,7 @@ public:
     }
     
     int getRandom() {
-                    cout << "In here  3" << endl;
-        int x = (rand() % (v.size()));
-        
-        cout << x << endl;
-        int result =  v[x];
-        cout << result << endl;
-        return result;
+        return  v[(rand() % (v.size()))];
         
     }
 };
