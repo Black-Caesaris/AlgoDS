@@ -26,7 +26,6 @@ public:
             base = base*10;
         }
         
-        // cout << number << endl;
         return to_string(number);
     }
     
@@ -50,7 +49,6 @@ public:
                 int x = stoi(stk.top());
                 stk.pop();
                 string dup = duplicate(x, temp);
-                cout << dup;
                 stk.push(dup);
             } else if(isdigit(s[i])){
                 string number = formNumber(i, s);
@@ -59,8 +57,7 @@ public:
             }else{
                stk.push(string(1,s[i]));   
             }
-            
-            cout << endl;
+        
         }
         
         string decodedString;
