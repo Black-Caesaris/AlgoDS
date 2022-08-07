@@ -12,7 +12,6 @@ public:
         }
         
         for(int i = 0 ; i < graph[node].size(); i++){
-            cout << "Node: " << node << endl;
             path.push_back(graph[node][i]);
             backtracks(graph, path, graph[node][i]);
             path.pop_back();
