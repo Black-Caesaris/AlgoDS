@@ -1,1 +1,1 @@
-​
+Good question. Learned about the List which is a doubly linked list in C++. Turned out to be quite effective.
