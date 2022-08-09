@@ -6,10 +6,7 @@ public:
         
         set<int> s(v.begin(), v.end());
         v.assign(s.begin(), s.end());
-        
-        for(auto i = s.begin(); i != s.end(); i++){
-            cout << *i << " ";
-        }
+    
         
         unordered_map<int, int> m;
         
