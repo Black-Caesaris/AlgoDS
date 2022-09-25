@@ -1,36 +1,23 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        vector<vector<int>> result;
-
-        if(intervals.size() == 0) return result;
-        
-        sort(begin(intervals), end(intervals), [](vector<int>& a, vector<int>& b){
-            if(a[0] == b[0]){
-                return (a[1] < b[1]);
-            }
+        sort(intervals.begin(), intervals.end(), [] (vector<int>& a, vector<int>& b) {
+            if(a[0] == b[0]) {
+                return a[1] < b[1];
+            } 
             
-            return (a[0] < b[0]);
+            return a[0] < b[0];
         });
-            
-        result.push_back(intervals[0]);
-        for(auto& interval : intervals){
-            // if start of interval is before end of previous interval
-            if(interval[0] <= result.back()[1]){
-                // overlap
-                cout << "In here";
-                vector<int> temp(2);
-                temp[0] = result.back()[0];
-                temp[1] = max(interval[1], result.back()[1]);
-                result.pop_back();
-                result.push_back(temp);
+        
+        vector<vector<int>> result;
+        for(int i = 0 ; i < intervals.size(); i++) {
+            if (i == 0 || intervals[i][0] > result[result.size() - 1][1]) {
+                result.push_back(intervals[i]);
             } else {
-                result.push_back(interval);
+                result[result.size() - 1][1] = max(result[result.size() - 1][1], intervals[i][1]);
             }
         }
         
-        
         return result;
-            
     }
 };
