@@ -7,7 +7,6 @@ public:
         
         for(auto i = s.begin() ; i != s.end(); i++) {
             int num = *i;
-            cout << num << " ";
             if(s.find(num - 1) == s.end()) {
                 int current_count = 1;
                 int current_num = num;
