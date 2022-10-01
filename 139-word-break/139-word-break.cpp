@@ -1,37 +1,27 @@
 class Solution {
 public:
-    
-
-    
-    bool backtrack(int index, string& s, unordered_set<string>& wordSet, vector<int>& memo){
-        if(index == s.length()){
+    vector<int> dp;
+    bool backtrack(int idx, string& s, unordered_set<string>& wordSet) {
+        if(idx == s.length()) {
             return true;
         }
         
-        if(memo[index] != -1) return memo[index];
+        if(dp[idx] != -1) 
+            return dp[idx];
         
-        for(int i=index; i<s.length(); i++){
-            string temp = s.substr(index, i-index+1);
-            if(wordSet.count(temp) && backtrack(i+1, s, wordSet, memo)){
-                return memo[i] = 1;
+        for(int i = idx; i < s.length(); i++) {
+            string word = s.substr(idx, i-idx+1);
+            if(wordSet.count(word) && backtrack(i+1, s, wordSet)){
+                return dp[idx] = true;
             }
         }
         
-        return memo[index] = 0;
+        dp[idx] = 0;
+        return false;
     }
-    
-    
     bool wordBreak(string s, vector<string>& wordDict) {
-        
-        if(s.length() == 0) return true;
-        
-        // create word set
         unordered_set<string> wordSet(wordDict.begin(), wordDict.end());
-        
-        // create dp array
-        vector<int> memo(s.length(), -1);
-        
-        return backtrack(0, s, wordSet, memo);
-        
+        dp = vector<int>(s.length(), -1);
+        return backtrack(0, s, wordSet);
     }
 };
