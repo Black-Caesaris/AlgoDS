@@ -75,13 +75,10 @@ public:
         
         ListNode* mid = findMid(head);
         cout << mid->val ;
-        cout << " In here 1 " << endl;
 
         ListNode* left = sortList(head);
-        cout << " In here 2 " << endl;
 
         ListNode* right = sortList(mid);
-        cout << " In here 3 " << endl;
 
         ListNode* mergedList = mergeList(left, right);
         
