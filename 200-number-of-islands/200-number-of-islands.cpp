@@ -1,36 +1,42 @@
 class Solution {
 public:
     
-    vector<int> x_coord = {0, 0, 1, -1};
-    vector<int> y_coord = {1, -1, 0, 0};
+    vector<int> x_dir = {0, 0, -1, 1};
+    vector<int> y_dir = {-1, 1, 0, 0};
     
-    void dfs(vector<vector<char>>& grid, int x, int y){
-        if(grid[x][y] == '1'){
-          grid[x][y] = 'X'; 
-        } else {
-            return;
+    bool isValid(int x, int y, vector<vector<char>>& grid) {
+        if(x >= 0 && x < grid.size() && y >= 0 && y < grid[0].size()) {
+            return true;
         }
-
-            
-        for(int i = 0 ; i < 4; i++){
-            int x_new = x + x_coord[i];
-            int y_new = y + y_coord[i];
-            
-            if(x_new >= 0 && x_new < grid.size() && y_new >= 0 && y_new < grid[0].size()){
-                
-                dfs(grid, x_new, y_new);
+        return false;
+    }
+    
+    void dfs(int x, int y, vector<vector<char>>& grid) {
+        grid[x][y] = '0';
+        
+        for(int i = 0 ; i < 4; i++) {
+            int x_coord = x + x_dir[i];
+            int y_coord = y + y_dir[i];
+            if(isValid(x_coord, y_coord, grid) && grid[x_coord][y_coord] == '1') {
+                    dfs(x_coord, y_coord, grid);
             }
         }
     }
     
     int numIslands(vector<vector<char>>& grid) {
+        int r = grid.size();
+        int c = grid[0].size();
         int result = 0;
         
-        for(int i = 0 ; i < grid.size(); i++){
-            for(int j = 0; j < grid[0].size(); j++){
+        if(r == 0 && c == 0) {
+            return result;
+        }
+        
+        for(int i = 0 ; i < r; i++) {
+            for(int j = 0 ; j < c; j++) {
                 if(grid[i][j] == '1'){
-                    dfs(grid, i, j);
                     result++;
+                    dfs(i, j, grid);
                 }
             }
         }
