@@ -1,24 +1,18 @@
 class Solution {
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        Stack<TreeNode> s = new Stack<>();
-        TreeNode node = root;
-        boolean found = false;
-        while (node != null || !s.isEmpty()) {
-            while (node != null) {
-                s.push(node);
-                node = node.left;
-            }
-            
-            node = s.pop();
-            if (found) {
-                return node;
-            }
-            if (node.val == p.val) {
-                found = true;
-            }
-            node = node.right;
+        if(root == null){
+            return null;
         }
         
-        return null;
+        TreeNode successor = inorderSuccessor(root.left, p);
+        if(successor != null){
+            return successor;
+        }
+        
+        if(root.val > p.val){
+            return root;
+        }
+        
+        return inorderSuccessor(root.right, p);
     }
 }
