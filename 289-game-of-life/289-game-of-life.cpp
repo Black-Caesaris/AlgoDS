@@ -38,7 +38,7 @@ public:
     }
         
     void gameOfLife(vector<vector<int>>& board) {
-        // states = {0, 1, }
+        // states = {0, 1, -1, -2}
         
         // 1. live < 2(LN) = Dead
         // 2. live == 2(LN) || 3(LN) = live
