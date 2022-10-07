@@ -25,7 +25,6 @@ public:
         }  
         
         for(ii currentPair : m) {
-            cout << currentPair.first << " " << currentPair.second << endl;
             if(!pq.empty()) {
                 if(pq.size() == k && pq.top().second < currentPair.second) {
                     pq.pop();
