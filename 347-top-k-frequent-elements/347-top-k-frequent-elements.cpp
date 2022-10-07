@@ -25,17 +25,9 @@ public:
         }  
         
         for(ii currentPair : m) {
-            if(!pq.empty()) {
-                if(pq.size() == k && pq.top().second < currentPair.second) {
-                    pq.pop();
-                    pq.push(currentPair);
-                } else if (pq.size() < k) {
-                    pq.push(currentPair);
-                }
-                
-            } else {
-                pq.push(currentPair);
-            }
+            pq.push(currentPair);
+            if(pq.size() > k)
+                pq.pop();
         }
         
         while(!pq.empty()) {
