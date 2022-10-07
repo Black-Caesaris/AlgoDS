@@ -26,18 +26,13 @@ public:
         
         
         while(right < s.length()) {
-            cout << "Current Distinct: " << currDistinct << endl;
             
             if(charIndex.count(s[right])) {
                 if(!inRange(s[right], left, right)) {
-                    cout << "Found distinct: ";
                     currDistinct++;
-                    // cout << currDistinct;
                 }
-                cout << "Found: updating current index: " << s[right] << endl;
                 charIndex[s[right]] = right;
             } else {
-                cout << "Inserting: " << s[right] << endl;
                 charIndex.insert({s[right], right});
                 currDistinct++;
             }
@@ -45,7 +40,6 @@ public:
             while(currDistinct > k && left < right) {
                 if(!inRange(s[left], left+1, right)) {
                     currDistinct--;
-                    cout << "Shifting left and reducing current distinct to: " << currDistinct << endl;
                 }
                 left++;
             }
