@@ -58,17 +58,14 @@ public:
         swap(num_freqs[pivot], num_freqs[sort_index]);
         
         if(sort_index == k-1) {
-            cout << "In 1" << endl;
             return; 
         }
 
         else if(sort_index > k) {
-            cout << "In 2" << endl;
             quickselect(start, sort_index-1, k);  
         }
 
         else {
-            cout << "In 3" << endl;
             quickselect(sort_index + 1, end, k);
         }
 
@@ -95,11 +92,7 @@ public:
         
         quickselect(0, num_freqs.size() - 1, num_freqs.size() - k);
         
-        
-        for(int i = 0 ; i < num_freqs.size(); i++) {
-            cout << num_freqs[i].first << " : " << num_freqs[i].second << endl;
-        }
-        
+   
         int i = num_freqs.size() - 1;
         while(k > 0){
             result.push_back(num_freqs[i].first);
