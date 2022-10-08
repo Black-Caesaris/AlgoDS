@@ -1,50 +1,55 @@
+typedef vector<int> vi;
+typedef unordered_map<int, int> mi;
+
 class RandomizedSet {
 public:
-    
-    unordered_map<int, int> m;
-    vector<int> v;
-    int idx;
+    vi v;
+    mi m;
     
     RandomizedSet() {
-        idx = 0;
+        
     }
     
     bool insert(int val) {
-        if(!m.count(val)){
-            m.insert({val, idx});
-            v.push_back(val);
-            idx++;
-            return true;
+        if(m.count(val)){
+            cout << "Out insert";
+            return false;
         }
         
-        return false;
+        v.push_back(val);
+        // size = index of element in the vector
+        
+        m.insert({val, v.size() - 1});
+        
+        cout << "Out insert";
+        
+        return true;
+        
     }
     
     bool remove(int val) {
-        if(m.count(val)){
-            // update index of element being swapped
-            m[*(v.end() - 1)] = m[val];
-            
-            // swap with last element
-            iter_swap(v.begin() + m[val], v.end() - 1); 
-            
-            // remove last
-            v.pop_back();
-            
-            // remove from map
-            m.erase(val);
-            
-            // decrement current index pointer
-            idx--;
-            return true;
+        if(!m.count(val)){
+            cout << "Out remove";
+            return false;   
         }
         
-        return false;
+        int curr_index = m[val];
+        m[v[v.size() - 1]] = curr_index;
+        swap(v[curr_index], v[v.size() - 1]);
+        v.pop_back();
+        m.erase(val);
+
+
+        cout << "Out remove";
+
+        return true;
     }
     
     int getRandom() {
-        return  v[(rand() % (v.size()))];
-        
+        int random = rand() % (v.size());
+        cout << "Out random";
+
+        return v[random];
     }
 };
 
