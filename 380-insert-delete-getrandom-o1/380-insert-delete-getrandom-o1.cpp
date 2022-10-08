@@ -12,24 +12,18 @@ public:
     
     bool insert(int val) {
         if(m.count(val)){
-            cout << "Out insert";
             return false;
         }
         
         v.push_back(val);
         // size = index of element in the vector
-        
         m.insert({val, v.size() - 1});
-        
-        cout << "Out insert";
-        
         return true;
         
     }
     
     bool remove(int val) {
         if(!m.count(val)){
-            cout << "Out remove";
             return false;   
         }
         
@@ -39,16 +33,11 @@ public:
         v.pop_back();
         m.erase(val);
 
-
-        cout << "Out remove";
-
         return true;
     }
     
     int getRandom() {
         int random = rand() % (v.size());
-        cout << "Out random";
-
         return v[random];
     }
 };
