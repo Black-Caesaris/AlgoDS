@@ -45,7 +45,7 @@ public:
             for(int i = 0 ; i < graph[ingredient].size(); i++) {
                 // reduce the number of ingredients required for the recipes used by this ingredient by 1;
                 indegrees[graph[ingredient][i].first] -= 1 ;
-                cout << graph[ingredient][i].second;
+                // cout << graph[ingredient][i].second;
                 if(indegrees[graph[ingredient][i].first] == 0) {
                     result.push_back(graph[ingredient][i].first);
                     q.push(graph[ingredient][i].first);
