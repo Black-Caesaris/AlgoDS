@@ -1,13 +1,26 @@
 class MyCalendar {
 private:
-    vector<pair<int, int>> calendar;
+    
+    set<pair<int, int>> calendar;
 
 public:
     bool book(int start, int end) {
-        for (const auto [s, e] : calendar) {
-            if (start < e && s < end) return false;
+        pair<int, int> event = {start, end};
+        
+        auto next = calendar.lower_bound(event);
+        
+        if(next != calendar.end() && next->first < end){
+            return false;
         }
-        calendar.emplace_back(start, end);
+        
+        if(next != calendar.begin()) {
+            auto previous = prev(next);
+            if(previous->second > start) {
+                return false;
+            }
+        }
+        
+        calendar.insert(event);
         return true;
     }
 };
