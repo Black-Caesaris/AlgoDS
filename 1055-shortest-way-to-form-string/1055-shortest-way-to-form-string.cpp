@@ -79,7 +79,7 @@ public:
             auto idx = lower_bound(invertedIndex[ch].begin(), invertedIndex[ch].end(), prev);
             
             if(idx != invertedIndex[ch].end()) {
-                cout << *idx << endl;
+                // cout << *idx << endl;
                 prev = *idx + 1;
             } else {
                 result++;
