@@ -14,16 +14,8 @@ public:
             i += 2;
         }
         
-        if(sum != finalSum) {
-            long long remaining = finalSum - sum;
-            long long last =  result[result.size() - 1];
-            if(remaining > last) {
-                result.push_back(remaining);
-            } else {
-                result.pop_back();
-                result.push_back(last + remaining);
-            }
-        }
+        int remaining = finalSum - sum;
+        result[result.size() - 1] += remaining > 0 ? remaining : 0;
         
         return result;
     }
