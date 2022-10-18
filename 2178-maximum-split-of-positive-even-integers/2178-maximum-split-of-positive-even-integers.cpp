@@ -15,7 +15,9 @@ public:
         }
         
         int remaining = finalSum - sum;
-        result[result.size() - 1] += remaining > 0 ? remaining : 0;
+        if(remaining) { 
+            result[result.size() - 1] += remaining;
+        }
         
         return result;
     }
