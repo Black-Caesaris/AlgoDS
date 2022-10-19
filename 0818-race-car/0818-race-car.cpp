@@ -1,10 +1,16 @@
 typedef pair<int, int> pii;
 
+struct pair_hash {
+    inline std::size_t operator()(const std::pair<int,int> & v) const {
+        return v.first*31+v.second;
+    }
+};
+
 class Solution {
     
 public:
     
-    set<pii> v;
+    unordered_set<pii, pair_hash> v;
     
     void sol(queue<pii>& q, int position, int speed, int target) {
         pii node = {position, speed};
