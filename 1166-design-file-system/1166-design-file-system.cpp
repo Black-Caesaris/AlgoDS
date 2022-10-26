@@ -24,7 +24,6 @@ public:
         Node* node = root;
         for(int i = 1 ; i < words.size(); i++) {
             string word = words[i];
-            cout << word << endl;
             if(!node->children.count(word)) {
                 if( i == words.size() - 1) {
                   node->children.insert({word, new Node()});
