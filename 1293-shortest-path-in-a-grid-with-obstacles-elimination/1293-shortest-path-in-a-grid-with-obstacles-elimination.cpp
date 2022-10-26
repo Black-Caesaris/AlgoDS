@@ -31,10 +31,10 @@ public:
                     
                     int leftChances = node[2] - grid[new_x][new_y];
                     
-                    string hash = to_string(new_x) + "#"  + to_string(new_y) + to_string(leftChances) ;
+                    string hash = to_string(new_x) + "#"  + to_string(new_y) + "#" + to_string(leftChances) ;
                     
                     
-
+                    
                     
                     if(leftChances >= 0 && !visited.count(hash)) {
                         visited.insert(hash);
