@@ -5,10 +5,8 @@ public:
         vector<int> dp(jobs.size(), 0);
                 
         for(int i = jobs.size() - 1; i >= 0; i--) {
-            cout << i << " ";
             int currProfit = 0;
             int nextNonConflicting = lower_bound(startTime.begin(), startTime.end(), jobs[i][1]) - startTime.begin();
-            cout << nextNonConflicting << "::";
             if(nextNonConflicting != startTime.size()) {
                 currProfit = jobs[i][2] + dp[nextNonConflicting];
             } else {
