@@ -1,6 +1,6 @@
 class Solution {
 public:
-    long MOD = 10e9 + 7;
+    int MOD = 1e9 + 7;
     int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
         vector<pair<int, int>> engineers;
         
@@ -32,6 +32,6 @@ public:
             ans = max(ans, (totalSpeed * currEfficiency));
         }
         
-        return ans % (int) (1e9+7);
+        return ans % MOD;
     }
 };
