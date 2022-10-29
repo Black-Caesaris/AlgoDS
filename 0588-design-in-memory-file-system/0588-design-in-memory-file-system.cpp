@@ -15,7 +15,6 @@ class Tokenizer {
                 if(token == "")
                     continue;
                 this->tokens.push_back(token);
-                // cout << "Pushing token: " << token << endl;
             }
             return this->tokens;
         }
@@ -105,14 +104,8 @@ public:
     vector<string> ls(string path) {
         vector<string> tokens = tokenizer->tokenize(path);
         Directory* node = root;
-        // cout << path << endl;
-        // for(auto token : tokens) {
-        //     cout << token << endl;
-        // }
+
         for(auto& token : tokens) {
-            // cout << "Current Token: " << token << endl;
-            cout << "Current Directory: " << node->name << endl;
-            cout << "Current Token: " << token << endl;
             if(!node->getDirectory(token)) {
                 // means its a file
                 return {token};
@@ -120,9 +113,7 @@ public:
             node = node->getDirectory(token);
             cout << node->name << endl;
         }
-        
-        cout << endl;
-        
+                
         set<string> contents =  node->getContents();
         vector<string> result(begin(contents), end(contents));
         
@@ -134,14 +125,11 @@ public:
         Directory* node = root;
         
         for(auto& token : tokens) {
-            cout << "Creating directory: " << token << endl;
             if(!node->getDirectory(token)) {
                 node->putDirectory(token);
             }
             node = node->getDirectory(token);
-        }
-        
-        cout << endl;
+        }        
     }
     
     void addContentToFile(string filePath, string content) {
