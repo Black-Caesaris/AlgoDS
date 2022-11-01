@@ -14,7 +14,7 @@ public:
         // the breaking point is at i
         // find the next element int node, that fulfills the char for this breakage point
         for(int j = i + 1; j < node.length(); j++) {
-            if(node[j] == target[i]) {
+            if(node[j] == target[i] && node[j] != target[j]) {
                 swap(node[j], node[i]);
                 neighs.push_back(node);
                 swap(node[j], node[i]);
