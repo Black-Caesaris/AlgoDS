@@ -1,47 +1,26 @@
-class Node{
-public:
-    Node* next;
-    Node* prev;
-    string val;
-    
-    Node (string s) {
-        prev = next = nullptr;
-        val = s;
-    }
-};
-
-
 class BrowserHistory {
 public:
-    Node* head = nullptr;
+    vector<string> history;
+    int pos = 0;
     
     BrowserHistory(string homepage) {
-        head = new Node(homepage);
+        history.push_back(homepage);
     }
     
     void visit(string url) {
-        Node* node = new Node(url);
-        head->next = node;
-        head->next->prev = head;
-        head = head->next;
+        ++pos;
+        history.resize(pos);
+        history.push_back(url);
     }
     
     string back(int steps) {
-        while(head->prev != nullptr && steps > 0){
-            head = head->prev;
-            steps--;
-        }
-        
-        return head->val;
+        pos = pos - steps >= 0 ? pos - steps : 0;
+        return history[pos];
     }
     
     string forward(int steps) {
-        while(head->next != nullptr && steps > 0){
-            head = head->next;
-            steps--;
-        }
-        
-        return head->val;
+        pos = pos + steps < history.size() ? pos + steps : history.size() - 1;
+        return history[pos];
     }
 };
 
