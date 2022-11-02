@@ -15,8 +15,8 @@ public:
         queue<vector<int>> q;
         
         q.push({a, b});
-        // grid[a][b] = OBSTACLE;
-        int distance = 0;
+        grid[a][b] = OBSTACLE;
+        int distance = 1;
         
         while(!q.empty()) {
             int levelSize = q.size();
@@ -24,26 +24,26 @@ public:
                 vector<int> node = q.front();
                 q.pop();
                 
-                if(grid[node[0]][node[1]] == OBSTACLE)
-                    continue;
+//                 if(grid[node[0]][node[1]] == OBSTACLE)
+//                     continue;
 
-                if(grid[node[0]][node[1]] == FOOD)
-                    return distance ;
+//                 if(grid[node[0]][node[1]] == FOOD)
+//                     return distance ;
 
-                grid[node[0]][node[1]] = OBSTACLE;
+//                 grid[node[0]][node[1]] = OBSTACLE;
                 
                 
                 for(int i = 0 ; i < 4; i++) {
                     int x = node[0] + x_dir[i];
                     int y = node[1] + y_dir[i];
                     
-                    if(x < 0 || y < 0 || x >= rows || y >= cols)
+                    if(x < 0 || y < 0 || x >= rows || y >= cols || grid[x][y] == OBSTACLE)
                         continue;
 
-//                     if(grid[x][y] == FOOD)
-//                         return distance;
+                    if(grid[x][y] == FOOD)
+                        return distance;
 
-//                     grid[x][y] = OBSTACLE;
+                    grid[x][y] = OBSTACLE;
                     q.push({x, y});
                 }
             }
