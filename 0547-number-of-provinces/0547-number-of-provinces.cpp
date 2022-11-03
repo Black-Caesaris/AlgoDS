@@ -52,8 +52,8 @@ public:
         
         for(int i = 0 ; i < row; i++) {
             for(int j = 0; j < col; j++) {
-                // if(i >= j)
-                //     continue;
+                if(i >= j)
+                    continue;
                 
                 if(isConnected[i][j]) {
                     s->join(i, j);
@@ -63,18 +63,9 @@ public:
         
         unordered_set<int> provinces;
         int result = 0;
-        
-
-//         for(int& p : s->parent) {
-//             if(s->parent[p] == p) {
-//                 result++;
-//             }
-//         }
-        
+         
         for(int i = 0 ; i < s->parent.size() ; i++) {
             provinces.insert(s->find(i));
-            // if(s->parent[i] == i)
-            //     result++;
         }
         
         return provinces.size(); 
