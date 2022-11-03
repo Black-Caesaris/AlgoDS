@@ -63,6 +63,8 @@ public:
         
         unordered_set<int> provinces;
         int result = 0;
+        
+
 //         for(int& p : s->parent) {
 //             if(s->parent[p] == p) {
 //                 result++;
@@ -70,11 +72,12 @@ public:
 //         }
         
         for(int i = 0 ; i < s->parent.size() ; i++) {
-            if(s->parent[i] == i)
-                result++;
+            provinces.insert(s->find(i));
+            // if(s->parent[i] == i)
+            //     result++;
         }
         
-        return result; 
+        return provinces.size(); 
     }
 };
 
