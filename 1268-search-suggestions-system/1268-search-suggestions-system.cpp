@@ -1,97 +1,117 @@
-class Node{
-  public:
-    Node* nodes[26];
-    bool ends = false;
+class Node {
+public:
+    vector<Node*> hash;
+    char ch;
+    bool isEnd;
+        
+    Node() {
+        this->isEnd = false;
+        this->hash = vector<Node*>(26, nullptr);
+    }
     
-    bool containsKey(char ch) {
-        return (nodes[ch - 'a'] != nullptr);
+    Node(char ch) {
+        this->ch = ch;
+        this->isEnd = false;
+        this->hash = vector<Node*>(26, nullptr);
+    }
+    
+    Node* get(char ch) {
+        return hash[ch - 'a']; 
     }
     
     void put(char ch, Node* node) {
-        nodes[ch - 'a'] = node;
+        hash[ch - 'a'] = node;
     }
     
-    Node* get(char ch){
-        return nodes[ch - 'a'];
-    }
-    
-    bool doesEnd() {
-        return ends;
+    bool isWord() {
+        return this->isEnd;
     }
 };
 
-class Trie{
-    private: Node* root;
-    public:
+class Trie {
+  public:
+    Node* root;
     
-        Trie () {
-            root = new Node();
-        }
+    Trie() {
+        root = new Node(); 
+    }
     
-        void insert(string& word) {
-            Node* node = root;
-            for(int i = 0; i<word.length(); i++){
-                
-                if(!node->containsKey(word[i])){
-                    node->put(word[i], new Node());
-                }
-                node = node->get(word[i]);
+    void insert(string prefix) {
+        
+        Node* curr = root;
+        for(char& ch : prefix) {
+            // cout << ch << " ";
+            // add if not present
+            if(!curr->get(ch)) {
+                // cout << "At 0: " << endl;
+                curr->put(ch, new Node(ch));
             }
-            cout << endl;
-            node->ends = true;
+            
+            // cout << "At 1: " << endl;
+            curr = curr->get(ch);
         }
         
-        void dfsWithPrefix(Node* node, string& word, vector<string>& result){
-            if(result.size() == 3) return;
-            
-            if(node->doesEnd())
-            {
-                result.push_back(word);
-            }
-            
-            for(char ch = 'a' ; ch <= 'z'; ch++){
-                if(node->nodes[ch - 'a']) {
-                    word += ch;
-                    // cout << word << endl;
-                    dfsWithPrefix(node->nodes[ch - 'a'], word, result);
-                    word.pop_back();
-                }
-            }
-        }
+        curr->isEnd = true;
+        // cout << endl;
+    }
     
-        vector<string> getWordsStartingWith(string& prefix) {
-            Node* curr = root;
-            vector<string> result;
-                
-            for(char& ch : prefix){
-                if(!curr->nodes[ch - 'a']){
-                   return result;
-                }
-                curr = curr->nodes[ch - 'a'];
-            }
-            
-            dfsWithPrefix(curr, prefix, result);
-            return result;
+    void dfs(Node* curr, vector<string>& words, string word) {
+        // cout << word << endl;
+        if(words.size() == 3) {
+            // cout << "returning 3" << endl;
+            return;
         }
+        
+        // if we found a word
+        if(curr->isWord()) {
+            // cout << "found word returning: " << endl;
+            words.push_back(word);
+        }
+        
+        for(int i = 'a' ; i <= 'z'; i++) {
+            // find the next lexicographical path
+            if(curr->get(i)) {
+                // insert the new char to word
+                word.push_back(curr->get(i)->ch);
+                dfs(curr->get(i), words, word);
+                word.pop_back();
+            }
+        }
+    }
+    
+    vector<string> searchWithPrefix(string prefix) {
+        Node* curr = root;
+        vector<string> words;
+        
+        for(char& ch : prefix) {
+            // cout << ch << " ";
+            if(!curr->get(ch))
+                return words;
+            curr = curr->get(ch);
+        }
+        
+
+        dfs(curr, words, prefix);
+        return words;
+    }
 };
+
+
+
 
 class Solution {
 public:
-    
-    
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
-        
         Trie* trie = new Trie();
         vector<vector<string>> result;
         
-        for(int i=0; i<products.size(); i++){
-            trie->insert(products[i]);
+        for(string& product : products) {
+            trie->insert(product);
         }
         
-        for(int i=0; i<searchWord.length(); i++){
-            // single letter char edge case to consider
-            string temp = searchWord.substr(0, i+1);
-            result.push_back(trie->getWordsStartingWith(temp));
+        // result.push_back(trie->searchWithPrefix("mou"));
+        for(int i = 0 ; i < searchWord.length(); i++) {
+            result.push_back(trie->searchWithPrefix(searchWord.substr(0, i + 1)));
         }
         
         return result;
